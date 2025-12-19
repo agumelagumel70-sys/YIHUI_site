@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教学 - 万义辉</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+        }
+        .serif-font {
+            font-family: 'Noto Serif SC', serif;
+        }
+        .inter-font {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .teaching-item {
+            border-left: 4px solid #10b981;
+            transition: all 0.3s ease;
+        }
+        .teaching-item:hover {
+            border-left-color: #059669;
+        }
+        .training-item {
+            border-left: 4px solid #8b5cf6;
+            transition: all 0.3s ease;
+        }
+        .training-item:hover {
+            border-left-color: #7c3aed;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 1rem;
+            width: 12px;
+            height: 12px;
+            background: #f59e0b;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #f59e0b;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 2rem;
+            bottom: -2rem;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: #1e3a8a;
+            color: white;
+        }
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .expandable-content.expanded {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="serif-font text-xl font-bold text-gray-800">万义辉</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-800 transition-colors">首页</a>
+                    <a href="research.html" class="text-gray-600 hover:text-blue-800 transition-colors">研究</a>
+                    <a href="teaching.html" class="text-blue-800 font-medium border-b-2 border-blue-800 pb-1">教学</a>
+                    <a href="awards.html" class="text-gray-600 hover:text-blue-800 transition-colors">荣誉</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-6 py-4 space-y-3">
+                <a href="index.html" class="block text-gray-600">首页</a>
+                <a href="research.html" class="block text-gray-600">研究</a>
+                <a href="teaching.html" class="block text-blue-800 font-medium">教学</a>
+                <a href="awards.html" class="block text-gray-600">荣誉</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="pt-24 pb-12 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h1 class="serif-font text-5xl font-bold text-gradient mb-6">教学经历</h1>
+            <p class="text-xl text-gray-600 max-w-3xl">
+                积极参与教学实践和教师培训工作，在助教课程、教师培训等方面积累了丰富的教学经验，
+                致力于提升教学质量和促进教育发展。
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter -->
+    <section class="py-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-center gap-4">
+                <button class="filter-btn active px-6 py-2 rounded-lg border border-gray-300" data-filter="all">全部</button>
+                <button class="filter-btn px-6 py-2 rounded-lg border border-gray-300" data-filter="teaching">助教课程</button>
+                <button class="filter-btn px-6 py-2 rounded-lg border border-gray-300" data-filter="training">教师培训</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Timeline -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="serif-font text-3xl font-bold mb-12 text-gradient">教学与培训经历</h2>
+            
+            <div class="relative">
+                <div class="timeline-line"></div>
+                
+                <!-- 2025年秋 -->
+                <div class="timeline-item mb-12" data-category="teaching" data-semester="2025秋">
+                    <div class="teaching-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">高等教育与学生发展（研究生课程）</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年秋季学期</p>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">研究生课程</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded ml-2">助教</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">工作职责：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 协助课程教学，组织课堂讨论和案例分析</li>
+                                    <li>• 批改作业和论文，提供学术指导</li>
+                                    <li>• 组织学术讲座和实践活动</li>
+                                    <li>• 协助课程评估和教学改革研究</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">教学成果：</h4>
+                                <p class="text-gray-700">通过创新的教学方法，提升了研究生的学术参与度和研究能力，
+                                课程满意度达到95%以上。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025年秋培训 -->
+                <div class="timeline-item mb-12" data-category="training" data-semester="2025秋">
+                    <div class="training-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">福建省高校骨干教师数智化教学能力提升专题研修班</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年秋季</p>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">教师培训</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded ml-2">数智化教学</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">培训内容：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 数智化教学理论与实践</li>
+                                    <li>• 生成式AI在教学中的应用</li>
+                                    <li>• 在线教学平台的使用技巧</li>
+                                    <li>• 教学数据分析与评估方法</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">培训效果：</h4>
+                                <p class="text-gray-700">培训了50余名高校骨干教师，提升了他们的数智化教学能力，
+                                获得了参训教师的高度评价。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025年夏 -->
+                <div class="timeline-item mb-12" data-category="training" data-semester="2025夏">
+                    <div class="training-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">陆军边海防学院高级研修班</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年夏季</p>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">军队院校</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded ml-2">高级研修</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">培训特色：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 针对军队院校特点设计培训方案</li>
+                                    <li>• 结合边海防工作实际的教学内容</li>
+                                    <li>• 注重实践能力和创新思维培养</li>
+                                    <li>• 强化学员的教学研究能力</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">培训成果：</h4>
+                                <p class="text-gray-700">为陆军边海防学院培养了20余名教学骨干，提升了他们的教学水平和研究能力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 四川电影电视学院 -->
+                <div class="timeline-item mb-12" data-category="training" data-semester="2025夏">
+                    <div class="training-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">四川电影电视学院高级研修班</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年夏季</p>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">艺术院校</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded ml-2">专业培训</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">培训重点：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 艺术类专业教学方法创新</li>
+                                    <li>• 实践教学体系建设</li>
+                                    <li>• 学生创新能力培养</li>
+                                    <li>• 教学质量保障体系</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">培训成效：</h4>
+                                <p class="text-gray-700">为艺术院校教师提供了系统的教学方法培训，促进了艺术教育的创新发展。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025年春 -->
+                <div class="timeline-item mb-12" data-category="teaching" data-semester="2025春">
+                    <div class="teaching-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">大学经历与学生发展（本科生课程）</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年春季学期</p>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">本科生课程</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded ml-2">助教</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">课程简介：</h4>
+                                <p class="text-gray-700 mb-4">
+                                    本课程旨在帮助本科生更好地适应大学生活，促进学生的全面发展。
+                                    课程内容包括学习方法、时间管理、人际交往、职业规划等方面。
+                                </p>
+                                <h4 class="font-bold text-gray-800 mb-3">助教工作：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 组织新生适应活动和小组讨论</li>
+                                    <li>• 指导学生制定个人发展计划</li>
+                                    <li>• 协助开展心理健康教育活动</li>
+                                    <li>• 提供学业和职业发展咨询</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">教学创新：</h4>
+                                <p class="text-gray-700">引入朋辈辅导机制，建立学习共同体，有效提升了学生参与度和学习效果。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2025年春培训 -->
+                <div class="timeline-item mb-12" data-category="training" data-semester="2025春">
+                    <div class="training-item bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="serif-font text-xl font-bold text-gray-800 mb-2">福建省高校新任青年教师教学能力提升专题研修班</h3>
+                                <p class="text-gray-600 mb-2">厦门大学 | 2025年春季</p>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">新任教师</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded ml-2">基础培训</span>
+                            </div>
+                            <button class="expand-btn text-blue-600 hover:text-blue-800">
+                                <i data-feather="chevron-down" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="expandable-content">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-800 mb-3">培训目标：</h4>
+                                <ul class="text-gray-700 space-y-2 mb-4">
+                                    <li>• 帮助新任青年教师快速适应教学岗位</li>
+                                    <li>• 提升教学设计和课堂组织能力</li>
+                                    <li>• 掌握现代教育技术和教学方法</li>
+                                    <li>• 建立教学反思和持续改进机制</li>
+                                </ul>
+                                <h4 class="font-bold text-gray-800 mb-3">培训特色：</h4>
+                                <p class="text-gray-700">采用理论与实践相结合的方式，通过微格教学、同行观摩、专家指导等多种形式，
+                                全面提升新任教师的教学能力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Philosophy -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="serif-font text-3xl font-bold text-center mb-12 text-gradient">教学理念</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-feather="users" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold mb-4 text-gray-800">学生中心</h3>
+                    <p class="text-gray-600">
+                        坚持以学生为中心的教学理念，关注学生的个体差异和发展需求，
+                        为每个学生提供个性化的学习支持和指导。
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-feather="zap" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold mb-4 text-gray-800">创新导向</h3>
+                    <p class="text-gray-600">
+                        注重培养学生的创新思维和实践能力，鼓励学生质疑、探索、创造，
+                        培养具有批判性思维和创新能力的人才。
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-feather="trending-up" class="w-8 h-8 text-purple-600"></i>
+                    </div>
+                    <h3 class="serif-font text-xl font-bold mb-4 text-gray-800">持续发展</h3>
+                    <p class="text-gray-600">
+                        强调终身学习的重要性，培养学生自主学习的能力和习惯，
+                        为学生未来的职业发展和个人成长奠定坚实基础。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2025 万义辉. 个人学术网站.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+        
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                
+                timelineItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Expandable content
+        document.querySelectorAll('.expand-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.closest('.timeline-item').querySelector('.expandable-content');
+                const icon = this.querySelector('i');
+                
+                if (content.classList.contains('expanded')) {
+                    content.classList.remove('expanded');
+                    icon.setAttribute('data-feather', 'chevron-down');
+                } else {
+                    content.classList.add('expanded');
+                    icon.setAttribute('data-feather', 'chevron-up');
+                }
+                feather.replace();
+            });
+        });
+
+        // Timeline animation
+        anime({
+            targets: '.timeline-item',
+            opacity: [0, 1],
+            translateX: [-50, 0],
+            delay: anime.stagger(200),
+            duration: 800,
+            easing: 'easeOutExpo'
+        });
+
+        // Teaching philosophy cards animation
+        anime({
+            targets: '.card-hover',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            delay: anime.stagger(100, {start: 500}),
+            duration: 800,
+            easing: 'easeOutExpo'
+        });
+    </script>
+</body>
+</html>
